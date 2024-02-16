@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Tuple
 
 import esm
 import numpy as np
@@ -11,22 +11,41 @@ from esm.data import Alphabet
 # https://github.com/facebookresearch/esm/blob/main/examples/inverse_folding/sample_sequences.py
 # https://github.com/facebookresearch/esm/issues/236
 
-# SET YOUR PARAMETERS HERE
-pdbfile = "data/6ZKW.pdb"
-outpath = "results/6ZKW.fasta"
-chain = "D"
-design = ["110D", "111D", "112D", "134D", "135D"]  # 110,111,112,134,135 (chain D)
-num_samples = 10
-temperature = 1.0
-verbose = True
+
+def _concatenate_multichain_coords(
+    coords: Dict[str, np.ndarray], target_chain_ids: List[str], padding_length: int = 10
+) -> Tuple[np.ndarray, List[str]]:
+    # Padding coordinates between concatenated chains
+    pad_coords = np.full((padding_length, 3, 3), np.nan, dtype=np.float32)
+
+    # For best performance, put the target chains first in concatenation.
+    coords_list = []
+    for chain_id in target_chain_ids:
+        if len(coords_list) > 0:
+            coords_list.append(pad_coords)
+        coords_list.append(coords[chain_id])
+
+    # Concatenate remaining chains
+    for chain_id in coords:
+        if chain_id in target_chain_ids:
+            continue
+        coords_list.append(pad_coords)
+        coords_list.append(coords[chain_id])
+
+    # Concatenate all chains
+    coords_concatenated = np.concatenate(coords_list, axis=0)
+
+    return coords_concatenated
 
 
-def _seq2index(structure: np.ndarray, design: List[str], target_chain_id: str):
+def _seq2index(
+    structure: np.ndarray, design: List[str], target_chain_ids: List[str]
+) -> List[int]:
     # Get atoms from design residues
     atoms = [
         f"{atom.res_id}{atom.chain_id}"
         for atom in structure
-        if (atom.chain_id == target_chain_id) and (atom.atom_name == "CA")
+        if (atom.chain_id in target_chain_ids) and (atom.atom_name == "CA")
     ]
 
     # Get indexes of design residues
@@ -39,13 +58,13 @@ def sample_seq_multichain(
     model: GVPTransformerModel,
     alphabet: Alphabet,
     pdbfile: str,
-    chain: str,
+    chains: str,
     design: List[str],
     outpath: str,
     num_samples: int = 1,
     temperature: float = 1.0,
     verbose: bool = False,
-):
+) -> Tuple[List[str], List[float]]:
     # Transfer model to GPU if available
     if torch.cuda.is_available():
         print("> Transferring model to GPU ...")
@@ -58,23 +77,22 @@ def sample_seq_multichain(
     )
 
     # Load native sequences
-    target_chain_id = chain
-    native_seq = native_seqs[target_chain_id]
+    target_chain_ids = chains
+    native_seq = "".join([native_seqs[chain_id] for chain_id in target_chain_ids])
     print("> Native sequence loaded from structure file:")
     print(native_seq)
 
-    # Sampling sequences with design residues
-    samples = []
-
     # Prepare input for sampling
-    target_chain_len = coords[target_chain_id].shape[0]
-    all_coords = esm.inverse_folding.multichain_util._concatenate_coords(
-        coords, target_chain_id
+    target_chain_len = 0
+    for chain_id in target_chain_ids:
+        target_chain_len += coords[chain_id].shape[0]
+    all_coords = _concatenate_multichain_coords(
+        coords, target_chain_ids, padding_length=10
     )
 
     # Supply padding tokens for other chains to avoid unused sampling for speed
     padding_pattern = ["<pad>"] * all_coords.shape[0]
-    designed_res = _seq2index(structure, design, target_chain_id)
+    designed_res = _seq2index(structure, design, target_chain_ids)
 
     # <res_name> for design residues
     # <mask> for designed residues
@@ -88,7 +106,9 @@ def sample_seq_multichain(
     # Send coordinates to gpu
     all_coords = torch.from_numpy(all_coords).to("cuda:0")
 
-    # Sampling
+    # Sampling sequences with design residues
+    samples, recoveries = [], []
+
     for i in range(num_samples):
         print(f"\n> Sampling.. ({i+1} of {num_samples})")
         sampled = model.sample(
@@ -108,17 +128,22 @@ def sample_seq_multichain(
 
         # Sequence recovery
         recovery = np.mean(
-                    [
-                        (a == b)
-                        for a, b in zip(
-                            "".join(native_seq[res_id] for res_id in designed_res),
-                            "".join(samples[i][res_id] for res_id in designed_res),
-                        )
-                    ]
+            [
+                (a == b)
+                for a, b in zip(
+                    "".join(native_seq[res_id] for res_id in designed_res),
+                    "".join(samples[i][res_id] for res_id in designed_res),
                 )
+            ]
+        )
+        recoveries.append(recovery)
         if verbose:
-            print(f"Native sequence: {''.join(native_seq[res_id] for res_id in designed_res)}")
-            print(f"Designed sequence: {''.join(samples[i][res_id] for res_id in designed_res)}")
+            print(
+                f"Native sequence: {''.join(native_seq[res_id] for res_id in designed_res)}"
+            )
+            print(
+                f"Designed sequence: {''.join(samples[i][res_id] for res_id in designed_res)}"
+            )
         print("Sequence recovery:", recovery)
 
     # Save sampled sequences to file
@@ -131,26 +156,4 @@ def sample_seq_multichain(
             f.write(f">sampled_seq_{i+1}\n")
             f.write(samples[i] + "\n")
 
-
-if __name__ == "__main__":
-    # UserWarning: Regression weights not found, predicting contacts will not produce correct results.
-    # @tomsercu: You don't need the regression weights, these are for contact prediction only. They are not uploaded on purpose to prevent folks from inadvertently using esm-1v for contact prediction which will lead to poor results, as discussed in the paper.
-    # https://github.com/facebookresearch/esm/issues/170#issuecomment-1076687163
-    model, alphabet = esm.pretrained.esm_if1_gvp4_t16_142M_UR50()
-
-    # use eval mode for deterministic output e.g. without random dropout
-    model = model.eval()
-    model = model.cuda()
-
-    # Sampling sequences
-    sample_seq_multichain(
-        model,
-        alphabet,
-        pdbfile,
-        chain,
-        design,
-        outpath,
-        num_samples,
-        temperature,
-        verbose,
-    )
+    return samples, recoveries
