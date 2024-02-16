@@ -1,6 +1,6 @@
 import warnings
 
-from TCRDesign.esmif import esm, sample_seq_multichain
+from TCRDesign import *
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
