@@ -14,7 +14,8 @@ chains = ["D", "E"]
 design = ["110D", "111D", "112D", "134D", "135D", "113E", "114E", "133E"]
 num_samples = 10
 temperature = 1.0
-verbose = True
+padding_length = 10
+verbose = False
 
 if __name__ == "__main__":
     # UserWarning: Regression weights not found, predicting contacts will not produce correct results.
@@ -24,7 +25,6 @@ if __name__ == "__main__":
 
     # use eval mode for deterministic output e.g. without random dropout
     model = model.eval()
-    model = model.cuda()
 
     # Sampling sequences
     samples, recoveries = sample_seq_multichain(
@@ -36,5 +36,8 @@ if __name__ == "__main__":
         outpath,
         num_samples,
         temperature,
+        padding_length,
         verbose,
     )
+
+    print(recoveries)
