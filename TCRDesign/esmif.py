@@ -165,12 +165,8 @@ def sample_seq_multichain(
             ]
         )
         recoveries.append(recovery)
-        print(
-            f"Native sequence: {''.join(native_seq[res_id] for res_id in indexes)}"
-        )
-        print(
-            f"Designed sequence: {''.join(samples[i][res_id] for res_id in indexes)}"
-        )
+        print(f"Native sequence: {''.join(native_seq[res_id] for res_id in indexes)}")
+        print(f"Designed sequence: {''.join(samples[i][res_id] for res_id in indexes)}")
         print("Sequence recovery:", recovery)
 
     # Save sampled sequences to file
