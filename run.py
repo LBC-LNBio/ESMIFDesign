@@ -1,21 +1,18 @@
+import os
 import warnings
 
-from TCRDesign import *
+import pandas as pd
+
+from TCRDesign import esm, get_chains, read_config, sample_seq_multichain
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
 
-# SET YOUR PARAMETERS HERE
-pdbfile = "data/6ZKW.pdb"
-outpath = "results/6ZKW.fasta"
-chains = ["D", "E"]
-# 110,111,112,134,135 (chain D)
-# 113,114,133 (chain E)
-design = ["110D", "111D", "112D", "134D", "135D", "113E", "114E", "133E"]
-num_samples = 10
-temperature = 1.0
-padding_length = 10
-verbose = False
+# CONSTANTS
+NUM_SAMPLES = 10
+TEMPERATURE = 1.0
+PADDING = 10
+VERBOSE = False
 
 if __name__ == "__main__":
     # UserWarning: Regression weights not found, predicting contacts will not produce correct results.
@@ -26,18 +23,39 @@ if __name__ == "__main__":
     # use eval mode for deterministic output e.g. without random dropout
     model = model.eval()
 
-    # Sampling sequences
-    samples, recoveries = sample_seq_multichain(
-        model,
-        alphabet,
-        pdbfile,
-        chains,
-        design,
-        outpath,
-        num_samples,
-        temperature,
-        padding_length,
-        verbose,
-    )
+    # Read configuration file
+    config = read_config("config.json")
 
-    print(recoveries)
+    # Create summary
+    summary = {}
+
+    # Iterate through all PDB files
+    for pdb in config:
+        print(f"[==> {pdb}")
+
+        # Prepare parameters
+        pdbfile = os.path.join("data", f"{pdb}.pdb")
+        outpath = os.path.join("results", f"{pdb}.fasta")
+        design = config[pdb]
+        chains = get_chains(design)
+
+        # Sampling sequences
+        samples, recoveries = sample_seq_multichain(
+            model,
+            alphabet,
+            pdbfile,
+            chains,
+            design,
+            outpath,
+            NUM_SAMPLES,
+            TEMPERATURE,
+            PADDING,
+            VERBOSE,
+        )
+
+        summary[pdb] = recoveries
+
+    # Convert to pandas DataFrame
+    summary = pd.DataFrame(summary)
+    summary.to_csv("results/summary.csv")
+    print(summary)
