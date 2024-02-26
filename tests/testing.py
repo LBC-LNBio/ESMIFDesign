@@ -1,3 +1,4 @@
+import os
 import sys
 import warnings
 
@@ -7,24 +8,38 @@ sys.path.append("../")
 
 from TCRDesign import *
 
-# We are evaluating ESM-IF model on multiple chains of a TCR-pMHC complex.
-# 6ZKW.pdb is a TCR-pMHC complex.
-# 6ZKW_DE.pdb is only the TCR (D and E).
-# 6ZKW_mut.pdb is a TCR-pMHC complex with mutations on the TCR interface residues to glycine.
-# 6ZKW_mut.pdb is a TCR-pMHC complex with mutations on the residues surrounding TCR interface to glycine.
-
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
 
+# We are assessing the ESM-IF model on multiple chains of a TCR-pMHC complex.
+# - 6ZKW.pdb represents a TCR-pMHC complex.
+# - 6ZKW_DE.pdb includes only the TCR (D and E chains).
+# - 6ZKW_contact_to_gly.pdb is a TCR-pMHC complex with mutations on the TCR
+# residues in contact with the pMHC, changing them to glycine.
+# - 6ZKW_all_gly.pdb is a TCR-pMHC complex with mutations on all residues,
+# changing them to glycine.
+
+# WARNING: The following code does not correctly calculate the recoveries for
+# the 6ZKW_contact_to_gly.pdb and 6ZKW_all_gly.pdb files. This is because the
+# native sequences are read from the pdb files.
+
 # SET YOUR PARAMETERS HERE
-pdbs = ["6ZKW.pdb", "6ZKW_DE.pdb", "6ZKW_mut.pdb", "6ZKW_mut2.pdb"]
+pdbs = [
+    "data/6ZKW.pdb",
+    "data/6ZKW_DE.pdb",
+    "data/6ZKW_contact_to_gly.pdb",
+    "data/6ZKW_all_gly.pdb",
+]
 chains = ["D", "E"]
 # 110,111,112,134,135 (chain D)
 # 113,114,133 (chain E)
 design = ["110D", "111D", "112D", "134D", "135D", "113E", "114E", "133E"]
 num_samples = 10
 temperature = 1.0
+padding_length = 10
 verbose = True
+
+# %%
 
 if __name__ == "__main__":
     # Load model
@@ -32,14 +47,14 @@ if __name__ == "__main__":
 
     # use eval mode for deterministic output e.g. without random dropout
     model = model.eval()
-    model = model.cuda()
 
     # Summary of recoveries
     summary = {}
 
     # Sampling sequences in pdbs
     for pdbfile in pdbs:
-        outpath = f"results/{pdbfile.split('.')[0]}.fasta"
+        print(f"> {pdbfile}")
+        outpath = f"results/{os.path.basename(pdbfile).replace('.pdb', '.fasta')}"
 
         # Sampling sequences
         samples, recoveries = sample_seq_multichain(
@@ -51,6 +66,7 @@ if __name__ == "__main__":
             outpath,
             num_samples,
             temperature,
+            padding_length,
             verbose,
         )
 
