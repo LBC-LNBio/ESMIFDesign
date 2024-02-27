@@ -28,6 +28,9 @@ if __name__ == "__main__":
 
     # Create summary
     summary = {}
+    summary["design"] = {}
+    summary["recovery"] = {}
+    summary["perplexity"] = {}
 
     # Iterate through all PDB files
     for pdb in config:
@@ -53,9 +56,15 @@ if __name__ == "__main__":
             VERBOSE,
         )
 
-        summary[pdb] = recoveries
+        # Save samples
+        
 
-    # Convert to pandas DataFrame
-    summary = pd.DataFrame(summary)
-    summary.to_csv("results/summary.csv")
-    print(summary)
+        # Save recovery
+        summary["recovery"][pdb] = recoveries
+
+        # Save perplexity
+
+    # # Convert to pandas DataFrame
+    # summary = pd.DataFrame(summary)
+    # summary.to_csv("results/summary.csv")
+    # print(summary)

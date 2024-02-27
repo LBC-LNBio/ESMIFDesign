@@ -68,7 +68,8 @@ def sample_seq_multichain(
 ) -> Tuple[List[str], List[float]]:
     # Transfer model to GPU if available
     if torch.cuda.is_available():
-        print("> Transferring model to GPU ...")
+        if verbose:
+            print("> Transferring model to GPU ...")
         model = model.cuda()
 
     # Load structure
@@ -130,7 +131,8 @@ def sample_seq_multichain(
 
     # Send coordinates to gpu
     if torch.cuda.is_available():
-        print("> Transferring data to GPU ...")
+        if verbose:
+            print("> Transferring data to GPU ...")
         all_coords = torch.from_numpy(all_coords).to("cuda:0")
 
     # Sampling sequences with design residues
