@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 # CONSTANTS
 NUM_SAMPLES = 10
-TEMPERATURE = 1.0
+TEMPERATURE = 0.1
 PADDING = 10
 VERBOSE = False
 
