@@ -3,7 +3,13 @@ import warnings
 
 import pandas as pd
 
-from TCRDesign import esm, get_chains, read_config, sample_seq_multichain
+from TCRDesign import (
+    esm,
+    get_chains,
+    prepare_sample_output,
+    read_config,
+    sample_seq_multichain,
+)
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
@@ -57,14 +63,23 @@ if __name__ == "__main__":
         )
 
         # Save samples
-        
+        summary["design"][pdb] = prepare_sample_output(
+            samples, pdbfile, chains, design, PADDING
+        )
 
         # Save recovery
         summary["recovery"][pdb] = recoveries
 
         # Save perplexity
+        pass
 
-    # # Convert to pandas DataFrame
-    # summary = pd.DataFrame(summary)
-    # summary.to_csv("results/summary.csv")
-    # print(summary)
+    # Convert designs to pandas DataFrame
+    designs = pd.DataFrame(summary["design"])
+    designs.to_csv("results/designs.csv")
+
+    # Convert recoveries to pandas DataFrame
+    recoveries = pd.DataFrame(summary["recovery"])
+    recoveries.to_csv("results/recoveries.csv")
+
+    # Show summary to user
+    print(summary)

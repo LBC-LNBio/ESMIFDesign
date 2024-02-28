@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -52,6 +53,66 @@ def _seq2index(
     indexes = [index for index, value in enumerate(atoms) if value in design]
 
     return indexes
+
+
+def prepare_sample_output(
+    samples: List[List[str]],
+    pdbfile: str,
+    chains: str,
+    design: List[str],
+    padding_length: int = 10,
+) -> List[str]:
+    # Load structure
+    structure = esm.inverse_folding.util.load_structure(pdbfile)
+    _, native_seqs = esm.inverse_folding.multichain_util.extract_coords_from_complex(
+        structure
+    )
+
+    # Get all_coords chain ordering
+    all_coords_chains = chains + list(set(native_seqs.keys()) - set(chains))
+
+    # Get chain sizes
+    chain_sizes = [len(native_seqs[chain_id]) for chain_id in all_coords_chains]
+
+    # Get length of target chain
+    target_chain_len = 0
+    for chain_id, size in zip(all_coords_chains, chain_sizes):
+        if chain_id in chains:
+            target_chain_len += size + padding_length
+
+    # Get native sequence
+    native_seq = []
+    for i, chain_id in enumerate(all_coords_chains):
+        for j in range(chain_sizes[i]):
+            native_seq.append(native_seqs[chain_id][j])
+        if i < len(all_coords_chains) - 1:
+            for j in range(padding_length):
+                native_seq.append("-")
+
+    # Prepare design indexes
+    indexes = []
+    for i, chain_id in enumerate(all_coords_chains):
+        start = sum([chain_sizes[j] for j in range(i)])
+        index = [
+            index + start + (i * padding_length)
+            for index in _seq2index(structure, design, chain_id)
+        ]
+        if len(index) > 0:
+            indexes.extend(index)
+
+    designs = []
+    outpath = os.path.join("results", os.path.basename(pdbfile.replace(".pdb", ".csv")))
+    with open(outpath, "w") as f:
+        for replicate, sample in enumerate(samples):
+            n = "".join(native_seq[index] for index in indexes)
+            s = "".join(sample[index] for index in indexes)
+            for i in range(len(s)):
+                f.write(
+                    f"{os.path.basename(pdbfile).replace('.pdb', '')},seq_n{replicate + 1},{design[i][:-1]},{n[i]},{s[i]},{design[i][-1]}\n"
+                )
+            designs.append(s)
+
+    return designs
 
 
 def sample_seq_multichain(
@@ -161,14 +222,14 @@ def sample_seq_multichain(
             [
                 (a == b)
                 for a, b in zip(
-                    "".join(native_seq[res_id] for res_id in indexes),
-                    "".join(samples[i][res_id] for res_id in indexes),
+                    "".join(native_seq[index] for index in indexes),
+                    "".join(samples[i][index] for index in indexes),
                 )
             ]
         )
         recoveries.append(recovery)
-        print(f"Native sequence: {''.join(native_seq[res_id] for res_id in indexes)}")
-        print(f"Designed sequence: {''.join(samples[i][res_id] for res_id in indexes)}")
+        print(f"Native sequence: {''.join(native_seq[index] for index in indexes)}")
+        print(f"Designed sequence: {''.join(samples[i][index] for index in indexes)}")
         print("Sequence recovery:", recovery)
 
     # Save sampled sequences to file
