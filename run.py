@@ -6,6 +6,7 @@ import pandas as pd
 from TCRDesign import (
     esm,
     get_chains,
+    get_frequency_of_residues,
     prepare_sample_output,
     read_config,
     sample_seq_multichain,
@@ -16,7 +17,7 @@ warnings.filterwarnings("ignore")
 
 # CONSTANTS
 NUM_SAMPLES = 10
-TEMPERATURE = 0.1
+TEMPERATURE = 1.0
 PADDING = 10
 VERBOSE = False
 
@@ -36,7 +37,8 @@ if __name__ == "__main__":
     summary = {}
     summary["design"] = {}
     summary["recovery"] = {}
-    summary["perplexity"] = {}
+    summary["uniqueness"] = {}
+    summary["frequency"] = {}
 
     # Iterate through all PDB files
     for pdb in config:
@@ -70,16 +72,32 @@ if __name__ == "__main__":
         # Save recovery
         summary["recovery"][pdb] = recoveries
 
-        # Save perplexity
-        pass
+        # Save uniqueness
+        # Uniqueness = number of unique designs / total number of designs
+        summary["uniqueness"][pdb] = [
+            len(list(set(summary["design"][pdb]))) / NUM_SAMPLES
+        ]
+
+        # Save frequency per position
+        summary["frequency"][pdb] = get_frequency_of_residues(
+            summary["design"][pdb], NUM_SAMPLES
+        )
 
     # Convert designs to pandas DataFrame
-    designs = pd.DataFrame(summary["design"])
-    designs.to_csv("results/designs.csv")
+    samples = pd.DataFrame(summary["design"])
+    samples.to_csv("results/designs.csv")
 
     # Convert recoveries to pandas DataFrame
     recoveries = pd.DataFrame(summary["recovery"])
     recoveries.to_csv("results/recoveries.csv")
+
+    # Convert uniqueness to pandas DataFrame
+    uniqueness = pd.DataFrame(summary["uniqueness"])
+    uniqueness.to_csv("results/uniqueness.csv")
+
+    # Convert frequency to pandas DataFrame
+    frequency = pd.DataFrame(summary["frequency"])
+    frequency.to_csv("results/frequency.csv")
 
     # Show summary to user
     print(summary)
