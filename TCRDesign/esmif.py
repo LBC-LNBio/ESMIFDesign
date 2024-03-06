@@ -61,6 +61,7 @@ def prepare_sample_output(
     chains: str,
     design: List[str],
     padding_length: int = 10,
+    basedir: str = "results",
 ) -> List[str]:
     # Load structure
     structure = esm.inverse_folding.util.load_structure(pdbfile)
@@ -101,7 +102,7 @@ def prepare_sample_output(
             indexes.extend(index)
 
     designs = []
-    outpath = os.path.join("results", os.path.basename(pdbfile.replace(".pdb", ".csv")))
+    outpath = os.path.join(basedir, os.path.basename(pdbfile.replace(".pdb", ".csv")))
     with open(outpath, "w") as f:
         for replicate, sample in enumerate(samples):
             n = "".join(native_seq[index] for index in indexes)
@@ -205,7 +206,7 @@ def sample_seq_multichain(
             all_coords,
             partial_seq=padding_pattern,
             temperature=temperature,
-            device="cuda:0",
+            device="cuda:0" if torch.cuda.is_available else "cpu",
         )
         sampled = sampled.replace("<pad>", "-")
 

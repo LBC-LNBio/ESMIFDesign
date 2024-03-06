@@ -2,6 +2,7 @@ import os
 import warnings
 
 import pandas as pd
+import torch
 
 from TCRDesign import (
     esm,
@@ -11,6 +12,9 @@ from TCRDesign import (
     read_config,
     sample_seq_multichain,
 )
+
+# Set seed
+torch.manual_seed(37)
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
@@ -45,8 +49,9 @@ if __name__ == "__main__":
         print(f"[==> {pdb}")
 
         # Prepare parameters
+        basedir = os.path.join("results")
         pdbfile = os.path.join("data", f"{pdb}.pdb")
-        outpath = os.path.join("results", f"{pdb}.fasta")
+        outpath = os.path.join(basedir, f"{pdb}.fasta")
         design = config[pdb]
         chains = get_chains(design)
 
@@ -66,7 +71,7 @@ if __name__ == "__main__":
 
         # Save samples
         summary["design"][pdb] = prepare_sample_output(
-            samples, pdbfile, chains, design, PADDING
+            samples, pdbfile, chains, design, PADDING, basedir
         )
 
         # Save recovery
@@ -85,19 +90,18 @@ if __name__ == "__main__":
 
     # Convert designs to pandas DataFrame
     samples = pd.DataFrame(summary["design"])
-    samples.to_csv("results/designs.csv")
+    samples.to_csv(os.path.join(basedir, "designs.csv"))
 
     # Convert recoveries to pandas DataFrame
     recoveries = pd.DataFrame(summary["recovery"])
-    recoveries.to_csv("results/recoveries.csv")
+    recoveries.to_csv(os.path.join(basedir, "recoveries.csv"))
 
     # Convert uniqueness to pandas DataFrame
     uniqueness = pd.DataFrame(summary["uniqueness"])
-    uniqueness.to_csv("results/uniqueness.csv")
+    uniqueness.to_csv(os.path.join(basedir, "uniqueness.csv"))
 
     # Convert frequency to pandas DataFrame
     frequency = pd.DataFrame(summary["frequency"])
-    frequency.to_csv("results/frequency.csv")
-
+    frequency.to_csv(os.path.join(basedir, "frequency.csv"))
     # Show summary to user
     print(summary)
