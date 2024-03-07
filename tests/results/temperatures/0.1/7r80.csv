@@ -42,7 +42,7 @@
 7r80,seq_n4,111,Q,A,D
 7r80,seq_n4,112,A,A,D
 7r80,seq_n4,134,G,G,D
-7r80,seq_n4,135,T,L,D
+7r80,seq_n4,135,T,T,D
 7r80,seq_n4,110,Y,K,E
 7r80,seq_n4,111,G,G,E
 7r80,seq_n4,112,T,T,E
@@ -75,7 +75,7 @@
 7r80,seq_n6,113,G,G,E
 7r80,seq_n6,133,I,T,E
 7r80,seq_n6,134,N,R,E
-7r80,seq_n6,135,Y,Y,E
+7r80,seq_n6,135,Y,F,E
 7r80,seq_n7,109,L,Q,D
 7r80,seq_n7,110,N,D,D
 7r80,seq_n7,111,Q,A,D

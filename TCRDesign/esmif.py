@@ -208,7 +208,27 @@ def sample_seq_multichain(
             temperature=temperature,
             device="cuda:0" if torch.cuda.is_available else "cpu",
         )
-        sampled = sampled.replace("<pad>", "-")
+        # Replace unwanted tokens to design
+        # <null_0>: 0
+        # <null_1>: 1
+        # <af2>: 2
+        # <cath>: c
+        # <cls>: l
+        # <mask>: m
+        # <eos>: o
+        # <unk>: u
+        # <pad>: -
+        sampled = (
+            sampled.replace("<null_0>", "0")
+            .replace("<null_1>", "1")
+            .replace("<af2>", "2")
+            .replace("<cath>", "c")
+            .replace("<cls>", "l")
+            .replace("<eos>", "o")
+            .replace("<mask>", "m")
+            .replace("<unk>", "u")
+            .replace("<pad>", "-")
+        )
 
         if verbose:
             print(f"> Sampled sequence {i+1}:")

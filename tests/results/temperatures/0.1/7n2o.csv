@@ -18,7 +18,7 @@
 7n2o,seq_n2,135,S,A,D
 7n2o,seq_n2,110,V,L,E
 7n2o,seq_n2,112,L,L,E
-7n2o,seq_n2,113,F,F,E
+7n2o,seq_n2,113,F,Y,E
 7n2o,seq_n2,133,S,S,E
 7n2o,seq_n2,134,T,T,E
 7n2o,seq_n2,135,D,D,E
@@ -42,7 +42,7 @@
 7n2o,seq_n4,135,S,A,D
 7n2o,seq_n4,110,V,L,E
 7n2o,seq_n4,112,L,L,E
-7n2o,seq_n4,113,F,Y,E
+7n2o,seq_n4,113,F,F,E
 7n2o,seq_n4,133,S,S,E
 7n2o,seq_n4,134,T,T,E
 7n2o,seq_n4,135,D,D,E
@@ -52,7 +52,7 @@
 7n2o,seq_n5,132,T,S,D
 7n2o,seq_n5,133,S,G,D
 7n2o,seq_n5,135,S,A,D
-7n2o,seq_n5,110,V,R,E
+7n2o,seq_n5,110,V,L,E
 7n2o,seq_n5,112,L,L,E
 7n2o,seq_n5,113,F,F,E
 7n2o,seq_n5,133,S,S,E
@@ -88,7 +88,7 @@
 7n2o,seq_n8,132,T,S,D
 7n2o,seq_n8,133,S,G,D
 7n2o,seq_n8,135,S,A,D
-7n2o,seq_n8,110,V,R,E
+7n2o,seq_n8,110,V,L,E
 7n2o,seq_n8,112,L,L,E
 7n2o,seq_n8,113,F,F,E
 7n2o,seq_n8,133,S,S,E
@@ -100,7 +100,7 @@
 7n2o,seq_n9,132,T,S,D
 7n2o,seq_n9,133,S,G,D
 7n2o,seq_n9,135,S,A,D
-7n2o,seq_n9,110,V,Q,E
+7n2o,seq_n9,110,V,L,E
 7n2o,seq_n9,112,L,L,E
 7n2o,seq_n9,113,F,F,E
 7n2o,seq_n9,133,S,S,E
@@ -112,7 +112,7 @@
 7n2o,seq_n10,132,T,S,D
 7n2o,seq_n10,133,S,G,D
 7n2o,seq_n10,135,S,A,D
-7n2o,seq_n10,110,V,R,E
+7n2o,seq_n10,110,V,L,E
 7n2o,seq_n10,112,L,L,E
 7n2o,seq_n10,113,F,F,E
 7n2o,seq_n10,133,S,S,E

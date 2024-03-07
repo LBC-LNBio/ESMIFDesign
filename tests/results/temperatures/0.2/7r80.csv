@@ -9,7 +9,7 @@
 7r80,seq_n1,112,T,T,E
 7r80,seq_n1,113,G,G,E
 7r80,seq_n1,133,I,T,E
-7r80,seq_n1,134,N,K,E
+7r80,seq_n1,134,N,R,E
 7r80,seq_n1,135,Y,Y,E
 7r80,seq_n2,109,L,Q,D
 7r80,seq_n2,110,N,D,D
@@ -94,7 +94,7 @@
 7r80,seq_n8,111,Q,A,D
 7r80,seq_n8,112,A,A,D
 7r80,seq_n8,134,G,G,D
-7r80,seq_n8,135,T,L,D
+7r80,seq_n8,135,T,T,D
 7r80,seq_n8,110,Y,K,E
 7r80,seq_n8,111,G,G,E
 7r80,seq_n8,112,T,T,E
@@ -107,13 +107,13 @@
 7r80,seq_n9,111,Q,A,D
 7r80,seq_n9,112,A,A,D
 7r80,seq_n9,134,G,G,D
-7r80,seq_n9,135,T,T,D
+7r80,seq_n9,135,T,L,D
 7r80,seq_n9,110,Y,K,E
 7r80,seq_n9,111,G,G,E
 7r80,seq_n9,112,T,T,E
 7r80,seq_n9,113,G,G,E
 7r80,seq_n9,133,I,T,E
-7r80,seq_n9,134,N,R,E
+7r80,seq_n9,134,N,K,E
 7r80,seq_n9,135,Y,Y,E
 7r80,seq_n10,109,L,Q,D
 7r80,seq_n10,110,N,D,D

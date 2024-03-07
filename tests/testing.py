@@ -27,7 +27,7 @@ warnings.filterwarnings("ignore")
 
 # CONSTANTS
 NUM_SAMPLES = 10
-TEMPERATURE = 1.0
+TEMPERATURE = 0.2
 PADDING = 10
 VERBOSE = False
 
@@ -358,7 +358,9 @@ if __name__ == "__main__":
         model,
         alphabet,
         temperatures=[
-            1,
+            5,
+            2,
+            1,  # 1e0
             0.9,
             0.8,
             0.7,
@@ -380,5 +382,5 @@ if __name__ == "__main__":
     testing_sampling(
         model,
         alphabet,
-        num_samples=[5, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+        num_samples=[5, 10, 25, 50, 100, 250, 500],
     )

@@ -9,7 +9,7 @@
 8shi,seq_n1,111,S,T,E
 8shi,seq_n1,112,E,A,E
 8shi,seq_n1,113,G,G,E
-8shi,seq_n1,134,E,N,E
+8shi,seq_n1,134,E,L,E
 8shi,seq_n1,135,D,T,E
 8shi,seq_n2,109,D,A,D
 8shi,seq_n2,110,A,D,D
@@ -22,7 +22,7 @@
 8shi,seq_n2,111,S,T,E
 8shi,seq_n2,112,E,A,E
 8shi,seq_n2,113,G,G,E
-8shi,seq_n2,134,E,N,E
+8shi,seq_n2,134,E,L,E
 8shi,seq_n2,135,D,T,E
 8shi,seq_n3,109,D,A,D
 8shi,seq_n3,110,A,D,D
@@ -48,7 +48,7 @@
 8shi,seq_n4,111,S,T,E
 8shi,seq_n4,112,E,A,E
 8shi,seq_n4,113,G,G,E
-8shi,seq_n4,134,E,N,E
+8shi,seq_n4,134,E,L,E
 8shi,seq_n4,135,D,T,E
 8shi,seq_n5,109,D,A,D
 8shi,seq_n5,110,A,D,D
@@ -61,7 +61,7 @@
 8shi,seq_n5,111,S,T,E
 8shi,seq_n5,112,E,A,E
 8shi,seq_n5,113,G,G,E
-8shi,seq_n5,134,E,L,E
+8shi,seq_n5,134,E,N,E
 8shi,seq_n5,135,D,T,E
 8shi,seq_n6,109,D,A,D
 8shi,seq_n6,110,A,D,D
@@ -74,7 +74,7 @@
 8shi,seq_n6,111,S,T,E
 8shi,seq_n6,112,E,A,E
 8shi,seq_n6,113,G,G,E
-8shi,seq_n6,134,E,N,E
+8shi,seq_n6,134,E,L,E
 8shi,seq_n6,135,D,T,E
 8shi,seq_n7,109,D,A,D
 8shi,seq_n7,110,A,D,D
@@ -100,7 +100,7 @@
 8shi,seq_n8,111,S,T,E
 8shi,seq_n8,112,E,A,E
 8shi,seq_n8,113,G,G,E
-8shi,seq_n8,134,E,N,E
+8shi,seq_n8,134,E,L,E
 8shi,seq_n8,135,D,T,E
 8shi,seq_n9,109,D,A,D
 8shi,seq_n9,110,A,D,D
@@ -113,7 +113,7 @@
 8shi,seq_n9,111,S,T,E
 8shi,seq_n9,112,E,A,E
 8shi,seq_n9,113,G,G,E
-8shi,seq_n9,134,E,L,E
+8shi,seq_n9,134,E,N,E
 8shi,seq_n9,135,D,T,E
 8shi,seq_n10,109,D,A,D
 8shi,seq_n10,110,A,D,D

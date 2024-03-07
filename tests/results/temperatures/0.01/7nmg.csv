@@ -37,7 +37,7 @@
 7nmg,seq_n4,111,G,G,D
 7nmg,seq_n4,112,N,N,D
 7nmg,seq_n4,134,T,T,D
-7nmg,seq_n4,135,G,S,D
+7nmg,seq_n4,135,G,A,D
 7nmg,seq_n4,110,L,L,E
 7nmg,seq_n4,111,H,Y,E
 7nmg,seq_n4,135,H,H,E
@@ -59,7 +59,7 @@
 7nmg,seq_n6,111,G,G,D
 7nmg,seq_n6,112,N,N,D
 7nmg,seq_n6,134,T,T,D
-7nmg,seq_n6,135,G,S,D
+7nmg,seq_n6,135,G,A,D
 7nmg,seq_n6,110,L,L,E
 7nmg,seq_n6,111,H,Y,E
 7nmg,seq_n6,135,H,H,E
@@ -92,7 +92,7 @@
 7nmg,seq_n9,111,G,G,D
 7nmg,seq_n9,112,N,N,D
 7nmg,seq_n9,134,T,T,D
-7nmg,seq_n9,135,G,A,D
+7nmg,seq_n9,135,G,S,D
 7nmg,seq_n9,110,L,L,E
 7nmg,seq_n9,111,H,Y,E
 7nmg,seq_n9,135,H,H,E

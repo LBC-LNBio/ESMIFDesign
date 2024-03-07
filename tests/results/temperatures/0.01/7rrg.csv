@@ -35,7 +35,7 @@
 7rrg,seq_n4,110,L,A,E
 7rrg,seq_n4,111,V,I,E
 7rrg,seq_n4,112,A,D,E
-7rrg,seq_n4,113,E,E,E
+7rrg,seq_n4,113,E,Q,E
 7rrg,seq_n4,134,T,T,E
 7rrg,seq_n4,135,Y,D,E
 7rrg,seq_n5,111,A,D,D
@@ -45,7 +45,7 @@
 7rrg,seq_n5,110,L,A,E
 7rrg,seq_n5,111,V,I,E
 7rrg,seq_n5,112,A,D,E
-7rrg,seq_n5,113,E,Q,E
+7rrg,seq_n5,113,E,E,E
 7rrg,seq_n5,134,T,T,E
 7rrg,seq_n5,135,Y,D,E
 7rrg,seq_n6,111,A,D,D

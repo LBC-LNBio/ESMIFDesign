@@ -6,7 +6,7 @@
 8d5q,seq_n1,111,G,G,E
 8d5q,seq_n1,112,R,R,E
 8d5q,seq_n1,113,G,G,E
-8d5q,seq_n1,133,G,A,E
+8d5q,seq_n1,133,G,G,E
 8d5q,seq_n1,134,Y,Y,E
 8d5q,seq_n1,135,A,A,E
 8d5q,seq_n2,112,T,T,D
@@ -17,7 +17,7 @@
 8d5q,seq_n2,111,G,G,E
 8d5q,seq_n2,112,R,R,E
 8d5q,seq_n2,113,G,G,E
-8d5q,seq_n2,133,G,G,E
+8d5q,seq_n2,133,G,A,E
 8d5q,seq_n2,134,Y,Y,E
 8d5q,seq_n2,135,A,A,E
 8d5q,seq_n3,112,T,T,D
@@ -33,7 +33,7 @@
 8d5q,seq_n3,135,A,A,E
 8d5q,seq_n4,112,T,T,D
 8d5q,seq_n4,113,G,G,D
-8d5q,seq_n4,114,A,E,D
+8d5q,seq_n4,114,A,T,D
 8d5q,seq_n4,133,N,N,D
 8d5q,seq_n4,110,A,Q,E
 8d5q,seq_n4,111,G,G,E
@@ -44,13 +44,13 @@
 8d5q,seq_n4,135,A,A,E
 8d5q,seq_n5,112,T,T,D
 8d5q,seq_n5,113,G,G,D
-8d5q,seq_n5,114,A,E,D
+8d5q,seq_n5,114,A,T,D
 8d5q,seq_n5,133,N,N,D
 8d5q,seq_n5,110,A,Q,E
 8d5q,seq_n5,111,G,G,E
 8d5q,seq_n5,112,R,R,E
 8d5q,seq_n5,113,G,G,E
-8d5q,seq_n5,133,G,G,E
+8d5q,seq_n5,133,G,A,E
 8d5q,seq_n5,134,Y,Y,E
 8d5q,seq_n5,135,A,A,E
 8d5q,seq_n6,112,T,T,D
@@ -94,7 +94,7 @@
 8d5q,seq_n9,111,G,G,E
 8d5q,seq_n9,112,R,R,E
 8d5q,seq_n9,113,G,G,E
-8d5q,seq_n9,133,G,G,E
+8d5q,seq_n9,133,G,A,E
 8d5q,seq_n9,134,Y,Y,E
 8d5q,seq_n9,135,A,A,E
 8d5q,seq_n10,112,T,T,D

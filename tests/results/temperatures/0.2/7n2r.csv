@@ -12,7 +12,7 @@
 7n2r,seq_n2,133,S,S,E
 7n2r,seq_n2,134,T,T,E
 7n2r,seq_n2,135,D,D,E
-7n2r,seq_n3,111,F,Y,D
+7n2r,seq_n3,111,F,F,D
 7n2r,seq_n3,111,A,D,E
 7n2r,seq_n3,112,T,L,E
 7n2r,seq_n3,113,Y,Y,E
@@ -33,14 +33,14 @@
 7n2r,seq_n5,133,S,S,E
 7n2r,seq_n5,134,T,T,E
 7n2r,seq_n5,135,D,D,E
-7n2r,seq_n6,111,F,Y,D
+7n2r,seq_n6,111,F,F,D
 7n2r,seq_n6,111,A,D,E
 7n2r,seq_n6,112,T,L,E
 7n2r,seq_n6,113,Y,Y,E
 7n2r,seq_n6,133,S,S,E
 7n2r,seq_n6,134,T,T,E
 7n2r,seq_n6,135,D,D,E
-7n2r,seq_n7,111,F,Y,D
+7n2r,seq_n7,111,F,F,D
 7n2r,seq_n7,111,A,D,E
 7n2r,seq_n7,112,T,L,E
 7n2r,seq_n7,113,Y,Y,E
@@ -61,7 +61,7 @@
 7n2r,seq_n9,133,S,S,E
 7n2r,seq_n9,134,T,T,E
 7n2r,seq_n9,135,D,D,E
-7n2r,seq_n10,111,F,F,D
+7n2r,seq_n10,111,F,Y,D
 7n2r,seq_n10,111,A,D,E
 7n2r,seq_n10,112,T,L,E
 7n2r,seq_n10,113,Y,Y,E

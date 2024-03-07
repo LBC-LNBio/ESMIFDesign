@@ -6,7 +6,7 @@
 7pbc,seq_n1,135,R,Q,D
 7pbc,seq_n1,136,A,Y,D
 7pbc,seq_n1,109,S,A,E
-7pbc,seq_n1,110,F,V,E
+7pbc,seq_n1,110,F,K,E
 7pbc,seq_n1,111,T,G,E
 7pbc,seq_n1,135,D,S,E
 7pbc,seq_n1,136,T,E,E
@@ -19,7 +19,7 @@
 7pbc,seq_n2,135,R,Q,D
 7pbc,seq_n2,136,A,Y,D
 7pbc,seq_n2,109,S,A,E
-7pbc,seq_n2,110,F,K,E
+7pbc,seq_n2,110,F,V,E
 7pbc,seq_n2,111,T,G,E
 7pbc,seq_n2,135,D,S,E
 7pbc,seq_n2,136,T,E,E
@@ -34,7 +34,7 @@
 7pbc,seq_n3,109,S,A,E
 7pbc,seq_n3,110,F,K,E
 7pbc,seq_n3,111,T,G,E
-7pbc,seq_n3,135,D,S,E
+7pbc,seq_n3,135,D,A,E
 7pbc,seq_n3,136,T,E,E
 7pbc,seq_n3,137,Q,E,E
 7pbc,seq_n4,109,R,R,D
@@ -47,7 +47,7 @@
 7pbc,seq_n4,109,S,A,E
 7pbc,seq_n4,110,F,K,E
 7pbc,seq_n4,111,T,G,E
-7pbc,seq_n4,135,D,A,E
+7pbc,seq_n4,135,D,S,E
 7pbc,seq_n4,136,T,E,E
 7pbc,seq_n4,137,Q,E,E
 7pbc,seq_n5,109,R,R,D
@@ -60,7 +60,7 @@
 7pbc,seq_n5,109,S,A,E
 7pbc,seq_n5,110,F,K,E
 7pbc,seq_n5,111,T,G,E
-7pbc,seq_n5,135,D,A,E
+7pbc,seq_n5,135,D,S,E
 7pbc,seq_n5,136,T,E,E
 7pbc,seq_n5,137,Q,E,E
 7pbc,seq_n6,109,R,R,D
@@ -81,7 +81,7 @@
 7pbc,seq_n7,111,T,A,D
 7pbc,seq_n7,112,G,G,D
 7pbc,seq_n7,134,R,E,D
-7pbc,seq_n7,135,R,E,D
+7pbc,seq_n7,135,R,Q,D
 7pbc,seq_n7,136,A,Y,D
 7pbc,seq_n7,109,S,A,E
 7pbc,seq_n7,110,F,K,E
@@ -97,9 +97,9 @@
 7pbc,seq_n8,135,R,Q,D
 7pbc,seq_n8,136,A,Y,D
 7pbc,seq_n8,109,S,A,E
-7pbc,seq_n8,110,F,K,E
+7pbc,seq_n8,110,F,I,E
 7pbc,seq_n8,111,T,G,E
-7pbc,seq_n8,135,D,A,E
+7pbc,seq_n8,135,D,S,E
 7pbc,seq_n8,136,T,E,E
 7pbc,seq_n8,137,Q,E,E
 7pbc,seq_n9,109,R,R,D

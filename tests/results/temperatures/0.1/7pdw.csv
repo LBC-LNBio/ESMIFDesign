@@ -24,7 +24,7 @@
 7pdw,seq_n2,137,Q,L,E
 7pdw,seq_n3,109,R,V,D
 7pdw,seq_n3,110,G,G,D
-7pdw,seq_n3,111,T,T,D
+7pdw,seq_n3,111,T,S,D
 7pdw,seq_n3,112,G,G,D
 7pdw,seq_n3,134,R,A,D
 7pdw,seq_n3,135,R,Q,D
@@ -36,7 +36,7 @@
 7pdw,seq_n3,137,Q,L,E
 7pdw,seq_n4,109,R,R,D
 7pdw,seq_n4,110,G,G,D
-7pdw,seq_n4,111,T,S,D
+7pdw,seq_n4,111,T,T,D
 7pdw,seq_n4,112,G,G,D
 7pdw,seq_n4,134,R,A,D
 7pdw,seq_n4,135,R,Q,D
@@ -106,7 +106,7 @@
 7pdw,seq_n9,111,T,R,E
 7pdw,seq_n9,135,D,D,E
 7pdw,seq_n9,137,Q,L,E
-7pdw,seq_n10,109,R,V,D
+7pdw,seq_n10,109,R,R,D
 7pdw,seq_n10,110,G,G,D
 7pdw,seq_n10,111,T,S,D
 7pdw,seq_n10,112,G,G,D

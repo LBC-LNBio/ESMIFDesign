@@ -7,7 +7,7 @@
 7pbe,seq_n1,134,S,S,E
 7pbe,seq_n1,135,G,G,E
 7pbe,seq_n2,109,N,N,D
-7pbe,seq_n2,111,N,N,D
+7pbe,seq_n2,111,N,D,D
 7pbe,seq_n2,112,T,T,D
 7pbe,seq_n2,135,D,N,D
 7pbe,seq_n2,111,A,L,E
@@ -18,7 +18,7 @@
 7pbe,seq_n3,111,N,D,D
 7pbe,seq_n3,112,T,T,D
 7pbe,seq_n3,135,D,N,D
-7pbe,seq_n3,111,A,L,E
+7pbe,seq_n3,111,A,V,E
 7pbe,seq_n3,112,N,N,E
 7pbe,seq_n3,134,S,S,E
 7pbe,seq_n3,135,G,G,E
@@ -55,7 +55,7 @@
 7pbe,seq_n7,134,S,S,E
 7pbe,seq_n7,135,G,G,E
 7pbe,seq_n8,109,N,N,D
-7pbe,seq_n8,111,N,D,D
+7pbe,seq_n8,111,N,N,D
 7pbe,seq_n8,112,T,T,D
 7pbe,seq_n8,135,D,N,D
 7pbe,seq_n8,111,A,L,E
