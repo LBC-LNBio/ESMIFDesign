@@ -3,6 +3,7 @@ import sys
 import warnings
 from typing import List
 
+import numpy as np
 import pandas as pd
 import torch
 from esm.data import Alphabet
@@ -10,7 +11,7 @@ from esm.inverse_folding.gvp_transformer import GVPTransformerModel
 
 sys.path.append("../")
 
-from TCRDesign import (
+from ESMIFDesign import (
     esm,
     get_chains,
     get_frequency_of_residues,
@@ -21,6 +22,7 @@ from TCRDesign import (
 
 # Set seed
 torch.manual_seed(37)
+np.random.seed(37)
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
@@ -340,6 +342,107 @@ def testing_sampling(
         frequency.to_csv(os.path.join(basedir, "frequency.csv"))
 
 
+def testing_design_approaches(model: GVPTransformerModel, alphabet: Alphabet):
+    print("====== Design approaches ======\n")
+
+    # All configuration files
+    configs = ["CDR3_interface.json", "CDR3.json", "CDRs_interface.json"]
+
+    # Create directory
+    os.makedirs(os.path.join("results", "design_approaches"), exist_ok=True)
+
+    # Create summary
+    summary = {}
+
+    for approach in configs:
+        print(f"\n=== {approach.replace('.json', '')} ===\n")
+        # Create directory
+        os.makedirs(
+            os.path.join(
+                "results", "design_approaches", f"{approach.replace('.json', '')}"
+            ),
+            exist_ok=True,
+        )
+
+        # Prepare summary
+        summary[approach.replace(".json", "")] = {
+            "design": {},
+            "recovery": {},
+            "uniqueness": {},
+            "frequency": {},
+        }
+
+        # Read configuration file
+        config = read_config(approach)
+
+        # Iterate through all PDB files
+        for pdb in config:
+            print(f"[==> {pdb}")
+
+            # Prepare parameters
+            basedir = os.path.join(
+                "results", "design_approaches", f"{approach.replace('.json', '')}"
+            )
+            pdbfile = os.path.join("data", "dataset", f"{pdb}.pdb")
+            outpath = os.path.join(basedir, f"{pdb}.fasta")
+            design = config[pdb]
+            chains = get_chains(design)
+
+            # Sampling sequences
+            samples, recoveries = sample_seq_multichain(
+                model,
+                alphabet,
+                pdbfile,
+                chains,
+                design,
+                outpath,
+                NUM_SAMPLES,
+                TEMPERATURE,
+                PADDING,
+                VERBOSE,
+            )
+
+            # Save samples
+            summary[approach.replace(".json", "")]["design"][pdb] = (
+                prepare_sample_output(
+                    samples, pdbfile, chains, design, PADDING, basedir
+                )
+            )
+
+            # Save recovery
+            summary[approach.replace(".json", "")]["recovery"][pdb] = recoveries
+
+            # Save uniqueness
+            # Uniqueness = number of unique designs / total number of designs
+            summary[approach.replace(".json", "")]["uniqueness"][pdb] = [
+                len(list(set(summary[approach.replace(".json", "")]["design"][pdb])))
+                / NUM_SAMPLES
+            ]
+
+            # Save frequency per position
+            summary[approach.replace(".json", "")]["frequency"][pdb] = (
+                get_frequency_of_residues(
+                    summary[approach.replace(".json", "")]["design"][pdb], NUM_SAMPLES
+                )
+            )
+
+        # Convert designs to pandas DataFrame
+        samples = pd.DataFrame(summary[approach.replace(".json", "")]["design"])
+        samples.to_csv(os.path.join(basedir, "designs.csv"))
+
+        # Convert recoveries to pandas DataFrame
+        recoveries = pd.DataFrame(summary[approach.replace(".json", "")]["recovery"])
+        recoveries.to_csv(os.path.join(basedir, "recoveries.csv"))
+
+        # Convert uniqueness to pandas DataFrame
+        uniqueness = pd.DataFrame(summary[approach.replace(".json", "")]["uniqueness"])
+        uniqueness.to_csv(os.path.join(basedir, "uniqueness.csv"))
+
+        # Convert frequency to pandas DataFrame
+        frequency = pd.DataFrame(summary[approach.replace(".json", "")]["frequency"])
+        frequency.to_csv(os.path.join(basedir, "frequency.csv"))
+
+
 if __name__ == "__main__":
     # Load model
     model, alphabet = esm.pretrained.esm_if1_gvp4_t16_142M_UR50()
@@ -380,7 +483,10 @@ if __name__ == "__main__":
 
     # Testing sampling based on sequence recovery, uniqueness and frequency
     testing_sampling(
-        model,
-        alphabet,
-        num_samples=[5, 10, 25, 50, 100, 250, 500],
+       model,
+       alphabet,
+       num_samples=[5, 10, 25, 50, 100, 250, 500],
     )
+
+    # Testing different design approaches
+    testing_design_approaches(model, alphabet)

@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import torch
 
-from TCRDesign import (
+from ESMIFDesign import (
     esm,
     get_chains,
     get_frequency_of_residues,
