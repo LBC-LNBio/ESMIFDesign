@@ -1,6 +1,7 @@
 import os
 import warnings
 
+import numpy as np
 import pandas as pd
 import torch
 
@@ -15,6 +16,7 @@ from TCRDesign import (
 
 # Set seed
 torch.manual_seed(37)
+np.random.seed(37)
 
 # Just suppress all warnings with this:
 warnings.filterwarnings("ignore")
